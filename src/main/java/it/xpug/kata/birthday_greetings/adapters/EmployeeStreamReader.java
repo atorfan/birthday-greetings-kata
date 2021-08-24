@@ -21,7 +21,7 @@ public final class EmployeeStreamReader implements EmployeeRepository {
 		return this.employeeReader
 				.read()
 				.filter(new BirthDateSelector(birthDate))
-				//				.peek(employee -> System.out.println("Employee from StreamReader: " + employee))
+				//.peek(employee -> System.out.println("Employee from StreamReader: " + employee))
 				.collect(Collectors.toList());
 	}
 }

@@ -22,18 +22,14 @@ public final class CsvFileSystemReader implements EmployeeReader {
 	public Stream<Employee> read() {
 		try {
 			return Files.lines(Paths.get(this.fileName))
-					.filter(CsvFileSystemReader::rowWithData)
+					.skip(1) // skipping csv header
 					.filter(CsvFileSystemReader::employeeRow)
 					.map(this::parseEmployee)
-					//					.peek(employee -> System.out.println("Employee from CSV: " + employee))
+					//.peek(employee -> System.out.println("Employee from CSV: " + employee))
 					;
 		} catch (final IOException e) {
 			throw new RuntimeException("Cannot read file " + this.fileName, e);
 		}
-	}
-
-	private static boolean rowWithData(final String s) {
-		return !s.trim().isEmpty();
 	}
 
 	private static boolean employeeRow(final String s) {
