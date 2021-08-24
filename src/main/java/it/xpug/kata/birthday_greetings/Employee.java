@@ -4,33 +4,33 @@ import java.text.ParseException;
 
 public class Employee {
 
-	private XDate birthDate;
-	private String lastName;
-	private String firstName;
-	private String email;
+	private final XDate birthDate;
+	private final String lastName;
+	private final String firstName;
+	private final String email;
 
-	public Employee(String firstName, String lastName, String birthDate, String email) throws ParseException {
+	public Employee(final String firstName, final String lastName, final String birthDate, final String email) throws ParseException {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = new XDate(birthDate);
 		this.email = email;
 	}
 
-	public boolean isBirthday(XDate today) {
-		return today.isSameDay(birthDate);
+	public boolean isBirthday(final XDate today) {
+		return today.isSameDay(this.birthDate);
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee " + firstName + " " + lastName + " <" + email + "> born " + birthDate;
+		return "Employee " + this.firstName + " " + this.lastName + " <" + this.email + "> born " + this.birthDate;
 	}
 
 	@Override
@@ -38,46 +38,53 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
+				+ ((this.birthDate == null) ? 0 : this.birthDate.hashCode());
+		result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
 		result = prime * result
-				+ ((firstName == null) ? 0 : firstName.hashCode());
+				+ ((this.firstName == null) ? 0 : this.firstName.hashCode());
 		result = prime * result
-				+ ((lastName == null) ? 0 : lastName.hashCode());
+				+ ((this.lastName == null) ? 0 : this.lastName.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Employee))
+		}
+		if (!(obj instanceof Employee)) {
 			return false;
-		Employee other = (Employee) obj;
-		if (birthDate == null) {
-			if (other.birthDate != null)
+		}
+		final Employee other = (Employee) obj;
+		if (this.birthDate == null) {
+			if (other.birthDate != null) {
 				return false;
-		} else if (!birthDate.equals(other.birthDate))
+			}
+		} else if (!this.birthDate.equals(other.birthDate)) {
 			return false;
-		if (email == null) {
-			if (other.email != null)
+		}
+		if (this.email == null) {
+			if (other.email != null) {
 				return false;
-		} else if (!email.equals(other.email))
+			}
+		} else if (!this.email.equals(other.email)) {
 			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
+		}
+		if (this.firstName == null) {
+			if (other.firstName != null) {
 				return false;
-		} else if (!firstName.equals(other.firstName))
+			}
+		} else if (!this.firstName.equals(other.firstName)) {
 			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		return true;
+		}
+		if (this.lastName == null) {
+			return other.lastName == null;
+		} else {
+			return this.lastName.equals(other.lastName);
+		}
 	}
 
-	
 }

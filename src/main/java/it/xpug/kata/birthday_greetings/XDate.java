@@ -7,44 +7,45 @@ import java.util.GregorianCalendar;
 
 public class XDate {
 
-	private Date date;
+	private final Date date;
 
 	public XDate() {
-		date = new Date();
+		this.date = new Date();
 	}
 
-	public XDate(String yyyyMMdd) throws ParseException {
-		date = new SimpleDateFormat("yyyy/MM/dd").parse(yyyyMMdd);
+	public XDate(final String yyyyMMdd) throws ParseException {
+		this.date = new SimpleDateFormat("yyyy/MM/dd").parse(yyyyMMdd);
 	}
 
 	public int getDay() {
-		return getPartOfDate(GregorianCalendar.DAY_OF_MONTH);
+		return this.getPartOfDate(GregorianCalendar.DAY_OF_MONTH);
 	}
 
 	public int getMonth() {
-		return 1 + getPartOfDate(GregorianCalendar.MONTH);
+		return 1 + this.getPartOfDate(GregorianCalendar.MONTH);
 	}
 
-	public boolean isSameDay(XDate anotherDate) {
+	public boolean isSameDay(final XDate anotherDate) {
 		return anotherDate.getDay() == this.getDay() && anotherDate.getMonth() == this.getMonth();
 	}
 
 	@Override
 	public int hashCode() {
-		return date.hashCode();
+		return this.date.hashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof XDate))
+	public boolean equals(final Object obj) {
+		if (!(obj instanceof XDate)) {
 			return false;
-		XDate other = (XDate) obj;
+		}
+		final XDate other = (XDate) obj;
 		return other.date.equals(this.date);
 	}
 
-	private int getPartOfDate(int part) {
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(date);
+	private int getPartOfDate(final int part) {
+		final GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(this.date);
 		return calendar.get(part);
 	}
 }
