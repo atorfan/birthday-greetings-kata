@@ -84,5 +84,4 @@ public final class Employee {
 			return this.lastName.equals(other.lastName);
 		}
 	}
-
 }

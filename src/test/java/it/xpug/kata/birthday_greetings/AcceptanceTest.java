@@ -2,7 +2,9 @@ package it.xpug.kata.birthday_greetings;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.dumbster.smtp.SmtpMessage;
-import it.xpug.kata.birthday_greetings.adapters.EmployeeCsvFile;
+import it.xpug.kata.birthday_greetings.adapters.CsvFileSystemReader;
+import it.xpug.kata.birthday_greetings.adapters.EmployeeReader;
+import it.xpug.kata.birthday_greetings.adapters.EmployeeStreamReader;
 import it.xpug.kata.birthday_greetings.adapters.GreetingsEmailSender;
 import it.xpug.kata.birthday_greetings.domain.XDate;
 import it.xpug.kata.birthday_greetings.ports.EmployeeGreetingsSender;
@@ -25,7 +27,8 @@ public class AcceptanceTest {
 	@Before
 	public void setUp() throws Exception {
 		this.mailServer = SimpleSmtpServer.start(AcceptanceTest.NONSTANDARD_PORT);
-		final EmployeeRepository employeeRepository = new EmployeeCsvFile("employee_data.txt");
+		final EmployeeReader employeeReader = new CsvFileSystemReader("employee_data.txt");
+		final EmployeeRepository employeeRepository = new EmployeeStreamReader(employeeReader);
 		final EmployeeGreetingsSender greetingsSender = new GreetingsEmailSender("localhost", AcceptanceTest.NONSTANDARD_PORT);
 		this.birthdayService = new GreetingsSender(employeeRepository, greetingsSender);
 	}

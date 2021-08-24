@@ -35,6 +35,11 @@ public class XDate {
 	}
 
 	@Override
+	public String toString() {
+		return "XDate " + this.localDate;
+	}
+
+	@Override
 	public int hashCode() {
 		return this.localDate.hashCode();
 	}
